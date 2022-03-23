@@ -32,17 +32,8 @@
                   'xbox-series-xs', 'switch', 'android', 'ios', 'vr', 'battlenet', 'origin', 'drm-free', 'xbox-360'],
         types: ['game', 'loot', 'beta'],
         sortTypes: ['date', 'value', 'popularity'],
-        // Rapid-API config to prevent CORS-error
-        options: {
-          method: 'GET',
-          url: 'https://gamerpower.p.rapidapi.com/api/giveaways',
-          //default value has to be value of optionArray[0]
-          params: {platform: 'pc', type: 'game', 'sort-by': 'date'},
-          headers: {
-            'x-rapidapi-host': 'gamerpower.p.rapidapi.com',
-            'x-rapidapi-key': '8aee3b2d36msh0e8d86c1f843a6ep1705dejsncad8c62ee314'
-          }
-        },
+    
+        params: {platform: 'pc', type: 'game', 'sort-by': 'date'},
       }
     },
     created() {
@@ -58,48 +49,33 @@
         {
           window.open(link, '_blank');
         };
-        // window.alert(link);
       },
       // Game-Giveaways API call
-      async getData(dropdownOutput) {
-        // check if all giveaways without filter should be loaded
-        if(this.showAll == true) {
-          delete this.options["params"];
+      async getData(filterValueType) {
+        if (this.showAll == true) {
+          (async() => {
+            this.giveawayList = await this.gamerpowerAPI.getAllGiveaways(); 
+          })()
         } else if (this.showAll == false) {
-          // check if first load
-          if (dropdownOutput == undefined) {
-            this.options = {
-              method: 'GET',
-              url: 'https://gamerpower.p.rapidapi.com/api/giveaways',
-              //default value has to be value of optionArray[0]
-              params: {platform: 'pc', type: 'game', 'sort-by': 'date'},
-              headers: {
-                'x-rapidapi-host': 'gamerpower.p.rapidapi.com',
-                'x-rapidapi-key': '8aee3b2d36msh0e8d86c1f843a6ep1705dejsncad8c62ee314'
+            if (filterValueType == undefined) {
+              this.params = {platform: 'pc', type: 'game', 'sort-by': 'date'};
+            } else if (filterValueType != undefined) {
+              // check which dropdown got changed
+              switch(filterValueType[1]) {
+                case "Platforms: ": 
+                  this.params["platform"] = filterValueType[0];
+                  break;
+                case "Types: ": 
+                  this.params["type"] = filterValueType[0];
+                  break;
+                case "Sort-by: ": 
+                  this.params["sort-by"] = filterValueType[0];
+                  break;
               }
-            }
-          } else if (dropdownOutput != undefined) {
-            // check which dropdown got changed
-            switch(dropdownOutput[1]) {
-              case "Platforms: ": 
-                this.options["params"]["platform"] = dropdownOutput[0];
-                break;
-              case "Types: ": 
-                this.options["params"]["type"] = dropdownOutput[0];
-                break;
-              case "Sort-by: ": 
-                this.options["params"]["sort-by"] = dropdownOutput[0];
-                break;
-            }
-          }
-        }
-      
-        // get giveaways
-        try {
-          let response = await this.axios.request(this.options);
-          this.giveawayList = response.data;
-        } catch (e) {
-          console.error(e);
+            }   
+          (async() => {
+            this.giveawayList = await this.gamerpowerAPI.getFilteredGiveaways(this.params); 
+          })()       
         }
       },
     },

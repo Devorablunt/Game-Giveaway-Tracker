@@ -18,32 +18,14 @@
     data() {
         return {
           giveawayData: [],
-          options: {
-            method: 'GET',
-            url: 'https://gamerpower.p.rapidapi.com/api/worth',
-            headers: {
-              'x-rapidapi-host': 'gamerpower.p.rapidapi.com',
-              'x-rapidapi-key': '8aee3b2d36msh0e8d86c1f843a6ep1705dejsncad8c62ee314'
-            }
-          }
         };
     },
     created() {
-      this.getData();
+      (async() => {
+        this.giveawayData = await this.gamerpowerAPI.getGiveawayInfo(); 
+      })()
     },
     methods: {
-      alertLink(link) {
-        window.alert(link);
-      },
-      // get giveaways
-      async getData() {
-        try {
-          let response = await this.axios.request(this.options);
-          this.giveawayData = response.data;
-        } catch (e) {
-          console.error(e);
-        }
-      },
     },
     components: { GiveawayCard, SlidePopUp }
 }

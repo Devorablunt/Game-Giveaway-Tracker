@@ -5,6 +5,7 @@ import VueGapi from 'vue-gapi'
 import App from './App.vue'
 
 
+
 const app = Vue.createApp(App);
 // Axios for API methods
 app.use(VueAxios, axios);
@@ -16,5 +17,9 @@ app.use(VueGapi, {
     discoveryDocs: ['https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest'],
     scope: 'https://www.googleapis.com/auth/calendar',
 })
+
+// import gamerpowerAPI functions
+import {gamerpowerAPI} from './services/gamerpowerAPI.js'
+app.config.globalProperties.gamerpowerAPI = gamerpowerAPI;
 
 app.mount('#app');
