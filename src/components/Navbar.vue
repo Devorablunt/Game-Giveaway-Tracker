@@ -26,8 +26,7 @@
 </template>
 
 <script>
-
-import LogIn from "./LogIn.vue"
+    import LogIn from "./LogIn.vue"
     export default {
         props: [],
         data() {
