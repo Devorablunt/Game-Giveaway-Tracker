@@ -22,17 +22,16 @@
     components: {
     Dropdown,
     GiveawayCard
-},
+  },
     data() {
       return {
-        showAll: true, // Show all giveaways + hide filters
+        showAll: true, // Show all giveaways + hide filter dopdowns
         giveawayList: [],
         // filter option arrays
         platforms: ['pc', 'steam', 'epic-games-store', 'ubisoft', 'gog', 'itchio', 'ps4', 'ps5', 'xbox-one', 
                   'xbox-series-xs', 'switch', 'android', 'ios', 'vr', 'battlenet', 'origin', 'drm-free', 'xbox-360'],
         types: ['game', 'loot', 'beta'],
         sortTypes: ['date', 'value', 'popularity'],
-    
         params: {platform: 'pc', type: 'game', 'sort-by': 'date'},
       }
     },
