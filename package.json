@@ -15,19 +15,6 @@
     "jest": "^27.5.1",
     "vue-gapi": "^2.0.0"
   },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "vue"
-    ],
-    "moduleNameMapper": {
-      "^@/(.)$": "<rootDir>/src/$1"
-    },
-    "moduleDirectories": [
-      "node_modules",
-      "src"
-    ]
-  },
   "devDependencies": {
     "@babel/core": "^7.17.8",
     "@babel/plugin-transform-modules-commonjs": "^7.17.7",
