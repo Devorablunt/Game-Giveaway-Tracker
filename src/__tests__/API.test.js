@@ -1,7 +1,5 @@
 //mocking the axios Module 
-import axios from 'axios';
 import {gamerpowerAPI} from '../services/gamerpowerAPI';
-jest.mock('axios');
 
 test("Call gamerpowerAPI all giveaways", () => {
 
